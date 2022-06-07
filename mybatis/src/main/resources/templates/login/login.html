@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	<!-- 사용자 정의 js -->  
+
+	  
+	<!-- 사용자 정의Contents -->
+	<th:block layout:fragment="customContents">
+		<form th:action="@{/login}" method="post">
+			<table border="1">
+				<tbody>
+					<tr>
+						<td>회원아이디</td>
+						<td>
+							<input type="text" name="memberId" placeholder="회원의 아이디를 입력주세요">
+						</td>
+					</tr>
+					<tr>
+						<td>회원비밀번호</td>
+						<td>
+							<input type="text" name="memberPw"  placeholder="회원의 비밀번호를 입력해주세요">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" >
+							<button type="submit"  style="width: 100%" >로그인</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<!-- <div th:if="${result != null}"> -->
+		<div th:if="${not #strings.isEmpty(result)}">
+			<p th:text="${result}"></p>
+		</div>
+	</th:block>
+
+
+</html>

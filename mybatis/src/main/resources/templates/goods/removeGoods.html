@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	<!-- 사용자 정의 js -->  
+	<th:block layout:fragment="customJs">
+		<script	type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<script>
+			$(function(){
+				$('#removeBtn').click(function(){
+					var memberPw = $('input[name="memberPw"]').val();
+					if(typeof memberPw == 'undifined' || memberPw == null || memberPw == ''){
+						alert('비밀번호를 입력해주세요');
+						$('input[name="memberPw"]').focus();
+						return false;
+					}else{
+						var result = confirm('정말로 삭제하시겠습니까?')
+							if(result){
+								$('#removeForm').submit();
+						}
+					}	
+				});
+			});
+		
+		</script>
+	</th:block>
+	  
+	<!-- 사용자 정의Contents -->
+	<th:block layout:fragment="customContents">
+		<form id="removeForm" th:action="@{/member/removeMember}" method="post">
+			<table border="1">
+				<tbody>
+					<tr>
+						<td>회원아이디</td>
+						<td>
+							<input type="text" name="memberId" th:value="${memberId}" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+						<td>회원비밀번호</td>
+						<td>
+							<input type="text" name="memberPw"  placeholder="회원의 비밀번호를 입력해주세요">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" >
+							<button type="button" id="removeBtn"  style="width: 100%" >회원탈퇴</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<!-- <div th:if="${result != null}"> -->
+		<div th:if="${not #strings.isEmpty(result)}">
+			<p th:text="${result}"></p>
+		</div>
+	</th:block>
+
+
+</html>

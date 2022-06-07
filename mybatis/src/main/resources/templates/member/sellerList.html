@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<table border="1">
+			<thead>
+				<tr>
+					<th>판매자아이디</th>
+					<th>판매자비밀번호</th>
+					<th>판매자이름</th>
+					<th>판매자등록날짜</th>
+					<th>상품코드</th>
+					<th>상품명</th>
+					<th>상품단가</th>
+					<th>상품등록날짜</th>
+				</tr>
+			</thead>			
+			<tbody>
+				<th:block th:if="${not #lists.isEmpty(sellerInfoList)}" th:each="l:${sellerInfoList}">
+					<tr th:if="${not #lists.isEmpty(l.goodsList)}" th:each="sl, status : ${l.goodsList}">
+						<td th:if="${status.index == 0}" th:text ="${l.memberId}" 		th:rowspan="${#lists.size(l.goodsList)}"></td>
+						<td th:if="${status.index == 0}" th:text ="${l.memberPw}"		th:rowspan="${#lists.size(l.goodsList)}"></td>
+						<td th:if="${status.index == 0}" th:text ="${l.memberName}" 	th:rowspan="${#lists.size(l.goodsList)}"></td>
+						<td th:if="${status.index == 0}" th:text ="${l.memberRegDate}"  th:rowspan="${#lists.size(l.goodsList)}"></td>					
+						<td th:text ="${sl.goodsCode}"  ></td>
+						<td th:text ="${sl.goodsName}"></td>
+						<td th:text ="${sl.goodsPrice}"></td>
+						<td th:text ="${sl.goodsRegDate}"></td>
+					</tr>
+					<th:block th:unless="${not #lists.isEmpty(l.goodsList)}">
+						<td colspan="8">등록된 상품이 없습니다.</td>
+					</th:block>
+				</th:block>
+				<tr th:unless="${not #lists.isEmpty(sellerInfoList)}">
+					<td colspan="8">조회된 내용이 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+	</th:block>
+
+</html>
